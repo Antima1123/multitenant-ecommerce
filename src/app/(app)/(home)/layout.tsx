@@ -5,6 +5,7 @@ import Footer from "./footer";
 import Navbar from "./navbar";
 import { SearchFilter } from "./search-filter";
 import { Category } from '@/payload-types';
+import { CustomCategory } from './type';
 
 type props = {
     children : React.ReactNode;
@@ -24,10 +25,11 @@ const HomeLayout = async({children} :props) => {
           parent: {
             exists: false,
           }
-        }
+        },
+        sort: 'name',
       })
 
-      const formattedData = data.docs.map((doc)=>(
+      const formattedData:CustomCategory[] = data.docs.map((doc)=>(
         {
             ...doc,
             subcategories: (doc.subcategories?.docs ?? []).map((doc) =>({
