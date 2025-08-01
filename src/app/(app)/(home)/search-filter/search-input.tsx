@@ -1,18 +1,37 @@
+"use client"
 import { Input } from "@/components/ui/input";
-import { SearchIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+import { ListFilterIcon, SearchIcon } from "lucide-react";
+import { CustomCategory } from "../type";
+import { CategoriesSidebar } from "./category-sidebar";
+import { useState } from "react";
 
 interface Props {
     disabled?: boolean;
+    data: CustomCategory[];
 };
 
-export const SearchInput = ({disabled}: Props ) =>{
+export const SearchInput = ({disabled, data}: Props ) =>{
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     return(
         <div className="flex items-center gap-2 w-full">
+            <CategoriesSidebar data={data} open={isSidebarOpen} onOpenChange={setIsSidebarOpen}/>
             <div className="relative w-full">
                 <SearchIcon className="absolute left-3 top-4 size-4 -traslate-y-1/2 text-neutral-500" />
                 <Input className="pl-8" placeholder="Search products" disabled={disabled} />
             </div>
+             {/* Todo: add Category ciew all button */}
+            <Button
+                variant="elevated"
+                className="size-12 shrink-0 flex lg:hidden"
+                onClick={()=> setIsSidebarOpen(true)}
+            >
+                <ListFilterIcon />
+            </Button>
 
+            {/* Todo : Add Library Button */}
         </div>
     )
 }
